@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--核心配置文件-->
+<mapper namespace="com.dao.BookMapper">
+
+    <insert id="addBook" parameterType="Book">
+        insert into books (bookName, bookCounts, detail) value (#{bookName}, #{bookCounts}, #{detail})
+    </insert>
+
+    <!--根据id删除一个Book-->
+    <delete id="deleteBookById" parameterType="int">
+        delete from books where bookID=#{bookID}
+    </delete>
+
+    <!--更新Book-->
+    <update id="updateBook" parameterType="Book">
+        update books
+        set bookName = #{bookName},bookCounts = #{bookCounts},detail = #{detail}
+        where bookID = #{bookID}
+    </update>
+
+    <!--根据id查询,返回一个Book-->
+    <select id="queryBookById" resultType="Book" parameterType="int">
+        select * from books
+        where bookID = #{bookID}
+    </select>
+
+    <!--查询全部Book-->
+    <select id="queryAllBook" resultType="Book">
+        SELECT * from books
+    </select>
+
+    <select id="queryBookByName" resultType="Book" parameterType="String">
+        select * from books where bookName like concat('%', #{bookName}, '%')
+    </select>
+
+</mapper>
